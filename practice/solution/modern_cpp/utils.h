@@ -18,6 +18,31 @@ PizzaDelivery parse_input(const std::string& filename)
     	throw std::ios_base::failure("Cannot open input file");
     }
 
+    int numPizza, numTeamTwo, numTeamThree, numTeamFour;
+    ifs >> numPiazza >> numTeamTwo >> numTeamThree >> numTeamFour;
+    // deal with newline 
+    ifs.get();
+
+    pizza_arr pizzas; 
+    for (int i = 0; i < numPizza; ++i)
+    {
+	// read one pizza 
+        pizza piz;  
+	piz.index = i; 
+        int numIngredients = ifs.get();	
+
+	for (int j = 0; j < numIngredients; ++j) 
+	{
+	    char ingredient = ifs.get();
+            piz.ingredients.push_back(ingredient);
+	}
+	
+	// use move instead of copy 
+	pizzas.push_back(std::move(piz));
+
+	// deal with newline 
+	ifs.get(); 
+    }
 	
     return PizzaDelivery(); 
 }
