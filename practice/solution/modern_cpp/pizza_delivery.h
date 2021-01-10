@@ -5,7 +5,8 @@ class PizzaDelivery
 {
 public:
     // constructor 
-    PizzaDelivery();
+    // default 
+    PizzaDelivery() = default;
     // default destructor 
     ~PizzaDelivery() = default; 
 }
