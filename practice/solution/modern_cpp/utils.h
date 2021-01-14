@@ -23,7 +23,9 @@ PizzaDelivery parse_input(const std::string& filename)
     // deal with newline 
     ifs.get();
 
-    pizza_arr pizzas; 
+    std::vector<int> teamNums = {numTeamTwo, numTeamThree, numTeamFour};     
+
+    pizza_vec pizzas; 
     for (int i = 0; i < numPizza; ++i)
     {
 	// read one pizza 
@@ -36,6 +38,9 @@ PizzaDelivery parse_input(const std::string& filename)
 	    char ingredient = ifs.get();
             piz.ingredients.push_back(ingredient);
 	}
+        
+	// sort the ingredients	
+        std::sort(piz.ingredients.begin(), piz.ingredients.end());
 	
 	// use move instead of copy 
 	pizzas.push_back(std::move(piz));
@@ -44,7 +49,7 @@ PizzaDelivery parse_input(const std::string& filename)
 	ifs.get(); 
     }
 	
-    return PizzaDelivery(); 
+    return PizzaDelivery(pizzas, teamNums); 
 }
 
 void save_results(const std::string& filename)
