@@ -31,7 +31,7 @@ public:
         {}
 
     // function to solve the problem 
-    std::unordered_map<int, std::vector<int>> solve() noexcept; 
+    std::unordered_multimap<int, std::vector<int>> solve() noexcept; 
 
 private:
 

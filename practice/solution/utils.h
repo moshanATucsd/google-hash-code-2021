@@ -50,8 +50,8 @@ PizzaDelivery parse_input(const std::string& filename)
             piz.ingredients.push_back(ingredient);
 	}
         
-	// sort the ingredients	
-        std::sort(piz.ingredients.begin(), piz.ingredients.end());
+	// sort the ingredients, maybe useless	
+        // std::sort(piz.ingredients.begin(), piz.ingredients.end());
 	
 	pizzas.push_back(piz);
     }
@@ -62,7 +62,7 @@ PizzaDelivery parse_input(const std::string& filename)
     return PizzaDelivery(pizzas, teamNums); 
 }
 
-void save_results(std::unordered_map<int, std::vector<int>>& results, const std::string& filename)
+void save_results(std::unordered_multimap<int, std::vector<int>>& results, const std::string& filename)
 {
     std::ofstream ofs(filename); 
 

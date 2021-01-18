@@ -13,6 +13,10 @@ int main(int argc, const char* argv[])
         std::cout << "Usage: pizza_hut <input_filename> <output_filename>\n";
     }
 
+    // for debugging 
+    // std::cout << "input " << argv[1] << std::endl; 
+    // std::cout << "output " << argv[2] << std::endl; 
+
     try
     {
         PizzaDelivery pd = parse_input(argv[1]);

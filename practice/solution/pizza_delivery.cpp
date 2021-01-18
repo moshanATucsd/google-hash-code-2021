@@ -17,9 +17,9 @@ std::ostream& operator<<(std::ostream& os, pizza_vec pv) noexcept
     return os; 
 }
 
-std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
+std::unordered_multimap<int, std::vector<int>> PizzaDelivery::solve() noexcept
 {
-    std::unordered_map<int, std::vector<int>> results; 
+    std::unordered_multimap<int, std::vector<int>> results; 
 
     // while loop as long as team not zero and pizza not zero  
     // break when number of pizza available is smaller than existing smaller team size
@@ -47,22 +47,30 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
         
 	// select the largest team 	
 	int largestTeamSize = 0; 
+        int teamSize = 4; 
 	for (auto it = m_teamNums.rbegin(); it != m_teamNums.rend(); ++it)
 	{
 	    if (*it != 0)
 	    {
-		largestTeamSize = *it; 
-		*it--; 
+		largestTeamSize = teamSize; 
+		*it = *it - 1; 
 		break; 
 	    }
+
+	    teamSize--; 
 	}
 	
+	// for debugging 
+	// std::cout << "chosen team size: " << largestTeamSize << std::endl; 
+
+	// for debuggging 
+	// std::cout << "pizza size " << m_pizzas.size() << std::endl;     
+
 	// check if we still have enough pizza 
 	if (m_pizzas.size() < largestTeamSize)
 	    continue; 
 
-	// write this team size in results 
- 	results.emplace(largestTeamSize, std::vector<int>()); 
+	std::vector<int> pizList; 
 	
 	// pick the pizza that has most new ingredients 
 	std::vector<std::string> currentIngredList;	
@@ -75,7 +83,7 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
 	    for (const auto& piz : m_pizzas)
 	    {
 		int numNewIngred = diff_ingred_for_cur_piz(currentIngredList, piz);
-		if (largestNewIngred < numNewIngred)
+		if (largestNewIngred <= numNewIngred)
 		{
 		    largestNewIngred = numNewIngred; 
 		    chosenPizIndex = piz.index; 
@@ -91,7 +99,7 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
 	    }
 	    
 	    // add chosen pizza to results 
-	    results[largestTeamSize].push_back(chosenPizIndex);
+	    pizList.push_back(chosenPizIndex);
 
 	    // remove chosen pizza 
 	    pizza_vec::iterator it = remove_if(m_pizzas.begin(), m_pizzas.end(), [chosenPizIndex](pizza piz){return piz.index == chosenPizIndex;}); 
@@ -100,6 +108,10 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
 	    // decrease team size 
 	    tempTeamSize--; 
 	}	
+
+
+	// write this team size in results 
+ 	results.emplace(largestTeamSize, pizList);
 	    
     }
 
