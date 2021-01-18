@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <unordered_map>
 
 #include "pizza_delivery.h" 
 
@@ -19,7 +20,7 @@ PizzaDelivery parse_input(const std::string& filename)
     }
 
     int numPizza, numTeamTwo, numTeamThree, numTeamFour;
-    ifs >> numPiazza >> numTeamTwo >> numTeamThree >> numTeamFour;
+    ifs >> numPizza >> numTeamTwo >> numTeamThree >> numTeamFour;
     // deal with newline 
     ifs.get();
 
@@ -35,7 +36,8 @@ PizzaDelivery parse_input(const std::string& filename)
 
 	for (int j = 0; j < numIngredients; ++j) 
 	{
-	    char ingredient = ifs.get();
+	    std::string ingredient;
+ 	    ifs >> ingredient;
             piz.ingredients.push_back(ingredient);
 	}
         
@@ -52,7 +54,7 @@ PizzaDelivery parse_input(const std::string& filename)
     return PizzaDelivery(pizzas, teamNums); 
 }
 
-void save_results(const std::string& filename)
+void save_results(std::unordered_map<int, std::vector<int>>, const std::string& filename)
 {
     std::ofstream ofs(filename); 
 

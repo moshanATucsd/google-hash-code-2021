@@ -3,6 +3,7 @@
 
 #include <string> 
 #include <unordered_map>
+#include <vector>
 
 struct pizza
 {
@@ -23,9 +24,9 @@ public:
     ~PizzaDelivery() = default; 
     
     // constructor we use 
-    // use rvalue to avoid copying 
-    PizzaDelivery(pizza_vec&& pizzas, std::vector<int> teamNums) noexcept 
-	: m_pizzas{std::move(pizzas)}, m_teamNums{teamNums}
+    PizzaDelivery(const pizza_vec& pizzas, std::vector<int> teamNums) noexcept 
+	: m_pizzas{pizzas}, m_teamNums{teamNums}
+        {}
 
     // function to solve the problem 
     std::unordered_map<int, std::vector<int>> solve() noexcept; 
