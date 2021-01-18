@@ -62,7 +62,7 @@ PizzaDelivery parse_input(const std::string& filename)
     return PizzaDelivery(pizzas, teamNums); 
 }
 
-void save_results(const std::unordered_map<int, std::vector<int>>& results, const std::string& filename)
+void save_results(std::unordered_map<int, std::vector<int>>& results, const std::string& filename)
 {
     std::ofstream ofs(filename); 
 
@@ -70,6 +70,9 @@ void save_results(const std::unordered_map<int, std::vector<int>>& results, cons
     {
         throw std::ios_base::failure("Cannot open the output file");
     }
+
+    // write the number of teams 
+    ofs << results.size() << std::endl; 
 
     std::unordered_map<int, std::vector<int>>::iterator it = results.begin();
     while (it != results.end())
