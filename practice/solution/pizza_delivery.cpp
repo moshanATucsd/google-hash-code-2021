@@ -2,6 +2,20 @@
 
 #include <iostream> 
 
+std::ostream& operator<<(std::ostream& os, pizza_vec pv) noexcept
+{
+    for (const auto& pizza : pv)
+    {
+	os << "pizza index: " << pizza.index << " number of ingredients: " << pizza.numIngredients << std::endl; 
+	os << "ingredients:" << std::endl; 
+	for (const auto& ing : pizza.ingredients)
+	{
+	    os << ing << std::endl;  
+	}
+    }
+    return os; 
+}
+
 std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
 {
     // while loop as long as team not zero and pizza not zero  

@@ -44,12 +44,14 @@ PizzaDelivery parse_input(const std::string& filename)
 	// sort the ingredients	
         std::sort(piz.ingredients.begin(), piz.ingredients.end());
 	
-	// use move instead of copy 
-	pizzas.push_back(std::move(piz));
+	pizzas.push_back(piz);
 
 	// deal with newline 
 	ifs.get(); 
     }
+    
+    // for debugging, print input pizza info 
+    std::cout << pizzas;
 	
     return PizzaDelivery(pizzas, teamNums); 
 }

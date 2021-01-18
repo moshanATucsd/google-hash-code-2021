@@ -14,6 +14,8 @@ struct pizza
 
 using pizza_vec = std::vector<pizza>; 
 
+std::ostream& operator<<(std::ostream& os, pizza_vec pv) noexcept;
+
 class PizzaDelivery
 {
 public:
