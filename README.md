@@ -7,7 +7,7 @@
 # team info 
 
 - Team name: Cyberpunk 2021 
-- Team members: Huiran, Sean 
+- Team members: Ran, Sean 
 
 # references 
 
