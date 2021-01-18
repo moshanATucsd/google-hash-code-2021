@@ -25,9 +25,6 @@ PizzaDelivery parse_input(const std::string& filename)
     // for debugging, print info 
     std::cout << "numPizza " << numPizza << " numTeamTwo " << numTeamTwo << " numTeamThree " << numTeamThree << " numTeamFour " << numTeamFour << std::endl; 
 
-    // deal with newline 
-    ifs.get();
-
     std::vector<int> teamNums = {numTeamTwo, numTeamThree, numTeamFour};     
 
     pizza_vec pizzas; 
@@ -36,7 +33,10 @@ PizzaDelivery parse_input(const std::string& filename)
 	// read one pizza 
         pizza piz;  
 	piz.index = i; 
-        int numIngredients = ifs.get();
+        int numIngredients;
+        std::string temp; 
+        ifs >> temp;
+	numIngredients = std::stoi(temp);
         piz.numIngredients = numIngredients;	
 
         // for debugging
@@ -53,9 +53,6 @@ PizzaDelivery parse_input(const std::string& filename)
         std::sort(piz.ingredients.begin(), piz.ingredients.end());
 	
 	pizzas.push_back(piz);
-
-	// deal with newline 
-	// ifs.get(); 
     }
     
     // for debugging, print input pizza info 
