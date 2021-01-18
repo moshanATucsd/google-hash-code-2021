@@ -5,4 +5,16 @@
 
 # data structure to use 
 
+- hash map to store the pizzas 
+- hash map to store the results 
+
+- array to store the currently used ingredients
+
 # complexity analysis 
+
+- for each team of size N, we need to 
+- go over the pizzas to select the one with largest new ingredients, O(PQ), where P is number of pizzas, Q is number of elements 
+
+- overall time complexity is O(MNPQ), where M is total team number 
+
+- space complexity: O(M + P + Q) 
