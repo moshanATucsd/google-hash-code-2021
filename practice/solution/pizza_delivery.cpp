@@ -18,11 +18,15 @@ std::ostream& operator<<(std::ostream& os, pizza_vec pv) noexcept
 
 std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
 {
+    std::unordered_map<int, std::vector<int>> results; 
+
     // while loop as long as team not zero and pizza not zero  
     // select largest team whose size is smaller than number 
     // of remaining pizza 
     // select one pizza, and then select from remaining pizza which has min. overlap 
     // until all people in team gets one pizza  
+
+    return results; 
 }	
 
 int PizzaDelivery::total_diff_ingred_for_two_piz(const pizza& p1, const pizza& p2) noexcept
