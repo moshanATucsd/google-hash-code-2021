@@ -33,62 +33,72 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
     {
 
 	// break 
-	int smallest_team_size = 0; 	
+	int smallestTeamSize = 0; 	
 	for (const auto& num : m_teamNums)
 	{
 	    if (num != 0) 
 	    {
-		smallest_team_size = num; 
+		smallestTeamSize = num; 
 		break; 
 	    }
 	}
-	if (m_pizzas.size() < smallest_team_size)
+	if (m_pizzas.size() < smallestTeamSize)
 	    break;  
         
 	// select the largest team 	
-	int largest_team_size = 0; 
+	int largestTeamSize = 0; 
 	for (auto it = m_teamNums.rbegin(); it != m_teamNums.rend(); ++it)
 	{
 	    if (*it != 0)
 	    {
-		largest_team_size = *it; 
+		largestTeamSize = *it; 
 		*it--; 
 		break; 
 	    }
 	}
 	
 	// check if we still have enough pizza 
-	if (m_pizzas.size() < largest_team_size)
+	if (m_pizzas.size() < largestTeamSize)
 	    continue; 
 
 	// write this team size in results 
- 	results[largest_team_size] = std::vector<int> piz_list; 
+ 	results.emplace(largestTeamSize, std::vector<int>()); 
 	
 	// pick the pizza that has most new ingredients 
-	std::vector<std::string> current_ingred_list;	
-	int temp_team_size = largest_team_size; 
- 	while (temp_team_size != 0)
+	std::vector<std::string> currentIngredList;	
+	int tempTeamSize = largestTeamSize; 
+ 	while (tempTeamSize != 0)
 	{
-	    int largest_new_ingred = 0; 
-	    int chosen_piz_index; 	
+	    int largestNewIngred = 0; 
+	    int chosenPizIndex; 
+	    std::vector<std::string> newIngreds; 	
 	    for (const auto& piz : m_pizzas)
 	    {
-		int numNewIngred = diff_ingred_for_cur_piz(current_ingred_list, piz);
-		if (largest_new_ingred < numNewIngred)
+		int numNewIngred = diff_ingred_for_cur_piz(currentIngredList, piz);
+		if (largestNewIngred < numNewIngred)
 		{
-		    larget_new_ingred = numNewIngred; 
-		    chosen_piz_index = piz.index; 
+		    largestNewIngred = numNewIngred; 
+		    chosenPizIndex = piz.index; 
+		    newIngreds = piz.ingredients; 
 		}
+	    }
+
+	    // add new ingredients to the list 
+	    for (const auto& ing : newIngreds)
+	    {
+	        if (std::find(currentIngredList.begin(), currentIngredList.end(), ing) == currentIngredList.end())
+		    currentIngredList.push_back(ing); 
 	    }
 	    
 	    // add chosen pizza to results 
-	    results[largest_team_size].push_back(chosen_piz_index];
+	    results[largestTeamSize].push_back(chosenPizIndex);
 
 	    // remove chosen pizza 
-	    pizza_vec::iterator it = remove_if(m_pizzas.begin(), m_pizzas.end(), [](pizza piz){return piz.index == chosen_piz_index;}); 
+	    pizza_vec::iterator it = remove_if(m_pizzas.begin(), m_pizzas.end(), [chosenPizIndex](pizza piz){return piz.index == chosenPizIndex;}); 
 	    m_pizzas.erase(it); 
-		
-	    temp_team_size--; 
+	    
+	    // decrease team size 
+	    tempTeamSize--; 
 	}	
 	    
     }
@@ -96,16 +106,15 @@ std::unordered_map<int, std::vector<int>> PizzaDelivery::solve() noexcept
     return results; 
 }	
 
-int PizzaDelivery::diff_ingred_for_cur_piz(const std::vector<std::string>& ing_list, const pizza& p) noexcept
+int PizzaDelivery::diff_ingred_for_cur_piz(const std::vector<std::string>& ingList, const pizza& p) noexcept
 {
-    std::vector<std::string>::iterator it, st; 
+    std::vector<std::string> v_temp; 
     
-    st = v.begin(); 
-    it = std::set_intersection(ing_list.begin(), ing_list.end(),
+    std::set_intersection(ingList.begin(), ingList.end(),
 			p.ingredients.begin(), p.ingredients.end(),
-			v.begin());
+			std::back_inserter(v_temp));
 
-    int numDiffIngred = p.numIngredients - std::distance(it, st);
+    int numDiffIngred = p.numIngredients - v_temp.size();
 
     return numDiffIngred; 
 }
