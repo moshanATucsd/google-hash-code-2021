@@ -21,4 +21,8 @@
 
 # results 
 
+![score](./images/total-score.jpg)
+
 - got `701492217` points overall, I have seen someone got `480,660,824`, and mine is `220831393` more than that
+
+
