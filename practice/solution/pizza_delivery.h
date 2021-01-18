@@ -35,7 +35,7 @@ public:
 
 private:
 
-    int total_diff_ingred_for_two_piz(const pizza& p1, const pizza& p2) noexcept;
+    int diff_ingred_for_cur_piz(const std::vector<std::string>& ing_list, const pizza& p) noexcept;
 
     pizza_vec m_pizzas; 
     std::vector<int> m_teamNums; 
