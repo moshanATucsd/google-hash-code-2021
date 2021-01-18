@@ -18,3 +18,7 @@
 - overall time complexity is O(MNPQ), where M is total team number 
 
 - space complexity: O(M + P + Q) 
+
+# results 
+
+- got `701492217` points overall, I have seen someone got `480,660,824`, and mine is `220831393` more than that
